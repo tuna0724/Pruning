@@ -113,7 +113,7 @@ def grasp(model, rm_modules, dataloader, device):
     with torch.no_grad():
         grads = torch.cat([w.grad.view(-1).detach().cpu() for w in rm_weights])
         Weights = torch.cat([w.view(-1).detach().cpu() for w in rm_weights])
-        score = (-1 * Weights * grads).clone().detach()
+        score = (Weights * grads).clone().detach()
     
     model.zero_grad()
     return score
